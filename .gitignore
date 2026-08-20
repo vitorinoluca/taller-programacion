@@ -1,0 +1,12 @@
+# binarios y objetos de compilación (Pascal/C/C++/Java, etc.)
+*.o
+*.obj
+*.exe
+*.class
+*.ppu
+
+# editores / SO
+.vscode/
+.idea/
+*.swp
+.DS_Store
