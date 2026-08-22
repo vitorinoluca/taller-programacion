@@ -12,7 +12,7 @@ g. Un módulo que retorne la información (ordenada por código de producto de m
 h. Un módulo que muestre la información obtenida en el punto g).
 }
 
-program Clase1MI;
+program programa_01;
 const dimF = 50;
 type dias = 0..31;
      rango1 = 0..15;
