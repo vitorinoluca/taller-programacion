@@ -1,6 +1,4 @@
 # Módulo 3 — Concurrente
 
-- [`clase-01/`](clase-01)
-- [`clase-02/`](clase-02)
-- [`clase-03/`](clase-03)
-- [`clase-04/`](clase-04)
+Cada práctica vive en su propia carpeta `practica-NN/ejercicios/`, agregada
+a medida que se resuelve.
