@@ -5,6 +5,14 @@
 *.class
 *.ppu
 
+# ejecutables sin extensión que genera fpc (mismo nombre que el .pas)
+**/practica-*/*
+!**/practica-*/*.*
+!**/practica-*/*/
+**/practica-*/*.o
+**/practica-*/*.obj
+**/practica-*/*.exe
+
 # editores / SO
 .vscode/
 .idea/
