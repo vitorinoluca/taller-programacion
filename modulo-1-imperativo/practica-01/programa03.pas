@@ -19,113 +19,151 @@ d. Muestre el código de película con mayor puntaje y el código de película c
 menor puntaje, del vector obtenido en el punto c)}
 
 program programa03;
+
+const
+  max_generos = 8;
+
 type
-	tgeneros = 1..8;
-	pelicula = record
-		codigo: integer;
-		genero: tgeneros;
-		puntaje: real;
-	end;
-	
-	lista = ^nodo;
-	nodo = record
-		dato: pelicula;
-		sig: lista;
-	end;
-	
-	vector = array [tgeneros] of lista;
-	mejorPelicula = record
-		codigo: integer;
-		puntaje: real;
-	end;
-	vector2 = array [tgeneros] of mejorPelicula;
+  tgeneros = 1..max_generos;
+
+  pelicula = record
+    codigo: integer;
+    genero: tgeneros;
+    puntaje: real;
+  end;
+
+  lista = ^nodo;
+  nodo = record
+    dato: pelicula;
+    sig: lista;
+  end;
+
+  vector = array[tgeneros] of lista;
+
+  mejorPelicula = record
+    codigo: integer;
+    puntaje: real;
+  end;
+
+  vector2 = array[tgeneros] of mejorPelicula;
+
 
 procedure leerPelicula(var p: pelicula);
 begin
-	writeln('ingrese el codigo de la pelicula');
-	readln(p.codigo);
-	if (p.codigo <> -1) then begin
-		writeln('ingrese el genero de la pelicula');
-		readln(p.genero);
-		writeln('ingrese el puntaje de la pelicula');
-		readln(p.puntaje);
-	end;
+  writeln('Ingrese el codigo de la pelicula');
+  readln(p.codigo);
+
+  if (p.codigo <> -1) then begin
+    writeln('Ingrese el genero de la pelicula');
+    readln(p.genero);
+
+    writeln('Ingrese el puntaje de la pelicula');
+    readln(p.puntaje);
+  end;
 end;
+
 
 procedure leerPeliculas(var v: vector);
 var
-	p: pelicula;
-	nue: lista;
+  p: pelicula;
+  nue: lista;
+  i: integer;
 begin
-	leerPelicula(p);
-	while (p.codigo <> -1) do begin
-		new(nue);
-		nue^.dato:= p;
-		nue^.sig:= v[p.genero];
-		v[p.genero]:= nue;
-		leerPelicula(P);
-	end;
+  { Inicializar las listas }
+  for i := 1 to max_generos do
+    v[i] := nil;
+
+  leerPelicula(p);
+
+  while (p.codigo <> -1) do begin
+    new(nue);
+    nue^.dato := p;
+    nue^.sig := v[p.genero];
+    v[p.genero] := nue;
+
+    leerPelicula(p);
+  end;
 end;
+
 
 procedure imprimirVector(v: vector);
 var
-	i: integer;
-	l: lista;
+  i: integer;
+  l: lista;
 begin
-	for i:= 1 to 8 do begin
-		l:= v[i];
-		writeln('-----------');
-		writeln('GENERO ', i);
-		while (l <> nil) do begin
-			writeln(l^.dato.codigo);
-			l:= l^.sig;
-		end;
-	end;
+  for i := 1 to max_generos do begin
+    l := v[i];
+
+    writeln('-----------');
+    writeln('GENERO ', i);
+
+    while (l <> nil) do begin
+      writeln(l^.dato.codigo);
+      l := l^.sig;
+    end;
+  end;
 end;
 
-procedure retornarMayorPuntaje (v1: vector; var v: vector2);
+
+procedure retornarMayorPuntaje(v1: vector; var v: vector2);
 var
-	i: integer;
-	l: lista;
+  i: integer;
+  l: lista;
 begin
-	for i:= 1 to 8 do begin
-		l:= v1[i];
-		v[i].codigo:= 0;
-		v[i].puntaje:= -1;
-		while (l <> nil) do begin
-			if (l^.dato.puntaje > v[i].puntaje) then begin
-				v[i].puntaje:= l^.dato.puntaje;
-				v[i].codigo:= l^.dato.codigo;
-			end;
-			l:= l^.sig;
-		end;
-	end;
+  for i := 1 to max_generos do begin
+    l := v1[i];
+
+    v[i].codigo := 0;
+    v[i].puntaje := -1;
+
+    while (l <> nil) do begin
+      if (l^.dato.puntaje > v[i].puntaje) then begin
+        v[i].puntaje := l^.dato.puntaje;
+        v[i].codigo := l^.dato.codigo;
+      end;
+
+      l := l^.sig;
+    end;
+  end;
 end;
+
 
 procedure ordenarVector(var v: vector2);
 var
-	i, j, pos: integer;
-	aux: mejorPelicula;
+  i, j, pos: integer;
+  aux: mejorPelicula;
 begin
-	for i:= 1 to 8 - 1 do begin
-		pos:= i;
-		for j:= i + 1 to 8 do begin
-			if (v[j].puntaje < v[pos].puntaje) then begin
-				pos:= j;
-			end;
-		end;
-		aux:= v[i];
-		v[i]:= v[pos];
-		v[pos]:= aux;
-	end;
+  for i := 1 to max_generos - 1 do begin
+    pos := i;
+
+    for j := i + 1 to max_generos do begin
+      if (v[j].puntaje < v[pos].puntaje) then
+        pos := j;
+    end;
+
+    aux := v[i];
+    v[i] := v[pos];
+    v[pos] := aux;
+  end;
 end;
 
-var
-	v: vector;
-	v2: vector2;
+
+procedure mostrarExtremos(v: vector2);
 begin
-	leerPeliculas(v);
-	imprimirVector(v);
-	retornarMayorPuntaje(v, v2);
-	ordenarVector(v2);
+  writeln('--------------------');
+  writeln('Pelicula con menor puntaje: ', v[1].codigo);
+  writeln('Pelicula con mayor puntaje: ', v[max_generos].codigo);
+end;
+
+
+var
+  v: vector;
+  v2: vector2;
+
+begin
+  leerPeliculas(v);
+  imprimirVector(v);
+  retornarMayorPuntaje(v, v2);
+  ordenarVector(v2);
+  mostrarExtremos(v2);
 end.
