@@ -13,7 +13,7 @@ modulo-1-imperativo/**/*
 # java / netbeans
 build/
 dist/
-nbproject/private/
+**/nbproject/private/
 __MACOSX/
 
 # editores / SO

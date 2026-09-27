@@ -11,3 +11,6 @@ Ejercicios y prácticas de la materia, organizados por paradigma.
 Cada módulo tiene una carpeta por práctica (`practica-01`, `practica-02`, ...)
 con los archivos de esa práctica directamente adentro. Las carpetas se
 agregan a medida que hay contenido.
+
+En `modulo-2-objetos/` está el proyecto de NetBeans (`TP_ProyectoAlumnos`):
+cada paquete `temaN` dentro de `src/` corresponde a la práctica N.
