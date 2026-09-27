@@ -12,5 +12,5 @@ Cada módulo tiene una carpeta por práctica (`practica-01`, `practica-02`, ...)
 con los archivos de esa práctica directamente adentro. Las carpetas se
 agregan a medida que hay contenido.
 
-En `modulo-2-objetos/` está el proyecto de NetBeans (`TP_ProyectoAlumnos`):
+`modulo-2-objetos/` es directamente el proyecto de NetBeans (se abre esa carpeta):
 cada paquete `temaN` dentro de `src/` corresponde a la práctica N.
