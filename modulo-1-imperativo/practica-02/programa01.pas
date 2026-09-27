@@ -1,13 +1,13 @@
-{1.- Implementar un programa que invoque a los siguientes m�dulos.
-a. Un m�dulo recursivo que retorne un vector de a lo sumo 15 n�meros enteros �random� mayores a 130 y menores a 145 (incluidos ambos). La carga finaliza con 
+{1.- Implementar un programa que invoque a los siguientes módulos.
+a. Un módulo recursivo que retorne un vector de a lo sumo 15 números enteros "random" mayores a 130 y menores a 145 (incluidos ambos). La carga finaliza con 
 el valor 130.
-b. Un m�dulo no recursivo que reciba el vector generado en a) e imprima el contenido del vector.
-c. Un m�dulo recursivo que reciba el vector generado en a) e imprima el contenido del vector.
-d. Un m�dulo recursivo que reciba el vector generado en a) y devuelva la suma de los valores contenidos en el vector.
-e. Un m�dulo recursivo que reciba el vector generado en a) y devuelva el m�ximo valor del vector.
-f. Un m�dulo recursivo que reciba el vector generado en a) y un valor y devuelva verdadero si dicho valor se encuentra en el vector o falso en caso contrario.
-g. Un m�dulo que reciba el vector generado en a) e imprima, para cada n�mero contenido en el vector, sus d�gitos en el orden en que aparecen en el n�mero. 
-Debe implementarse un m�dulo recursivo que reciba el n�mero e imprima lo pedido. Ejemplo si se recibe el valor 134, se debe imprimir 1  3  4
+b. Un módulo no recursivo que reciba el vector generado en a) e imprima el contenido del vector.
+c. Un módulo recursivo que reciba el vector generado en a) e imprima el contenido del vector.
+d. Un módulo recursivo que reciba el vector generado en a) y devuelva la suma de los valores contenidos en el vector.
+e. Un módulo recursivo que reciba el vector generado en a) y devuelva el máximo valor del vector.
+f. Un módulo recursivo que reciba el vector generado en a) y un valor y devuelva verdadero si dicho valor se encuentra en el vector o falso en caso contrario.
+g. Un módulo que reciba el vector generado en a) e imprima, para cada número contenido en el vector, sus dígitos en el orden en que aparecen en el número. 
+Debe implementarse un módulo recursivo que reciba el número e imprima lo pedido. Ejemplo si se recibe el valor 134, se debe imprimir 1  3  4
 }
 
 Program Clase2MI;

@@ -6,12 +6,15 @@
 *.ppu
 
 # ejecutables sin extensión que genera fpc (mismo nombre que el .pas)
-**/practica-*/*
-!**/practica-*/*.*
-!**/practica-*/*/
-**/practica-*/*.o
-**/practica-*/*.obj
-**/practica-*/*.exe
+modulo-1-imperativo/**/*
+!modulo-1-imperativo/**/*.*
+!modulo-1-imperativo/**/*/
+
+# java / netbeans
+build/
+dist/
+nbproject/private/
+__MACOSX/
 
 # editores / SO
 .vscode/
