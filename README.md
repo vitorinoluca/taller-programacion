@@ -13,4 +13,5 @@ con los archivos de esa práctica directamente adentro. Las carpetas se
 agregan a medida que hay contenido.
 
 `modulo-2-objetos/` es directamente el proyecto de NetBeans (se abre esa carpeta):
-cada paquete `temaN` dentro de `src/` corresponde a la práctica N.
+cada paquete `temaN` dentro de `src/` corresponde a la práctica N, y `repaso`
+tiene ejercicios extra de repaso.
