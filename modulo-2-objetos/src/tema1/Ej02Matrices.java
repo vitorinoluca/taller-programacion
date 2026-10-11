@@ -3,71 +3,73 @@ package tema1;
 import PaqueteLectura.GeneradorAleatorio;
 import PaqueteLectura.Lector;
 
+/**
+ * Práctica 1 - Ejercicio 2
+ *
+ * Escriba un programa que defina una matriz de enteros de tamaño 5x5.
+ * Inicialice la matriz con números aleatorios entre 0 y 30. Luego realice las
+ * siguientes operaciones en recorridos independientes:
+ *  - Mostrar el contenido de la matriz en consola.
+ *  - Calcular e informar la suma de los elementos de la fila 1.
+ *  - Generar un vector de 5 posiciones donde cada posición j contiene la suma
+ *    de los elementos de la columna j de la matriz. Luego, imprima el vector.
+ *  - Leer un valor entero e indicar si se encuentra o no en la matriz. En caso
+ *    de encontrarse indique su ubicación (fila y columna), en caso contrario
+ *    imprima "No se encontró el elemento".
+ */
 public class Ej02Matrices {
+
+    private static final int N = 5;
 
     public static void main(String[] args) {
         GeneradorAleatorio.iniciar();
 
-        int i;
-        int j;
-        int[][] matriz = new int[5][5];
-
-        for (i = 0; i < 5; i++) {
-            for (j = 0; j < 5; j++) {
+        int[][] matriz = new int[N][N];
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
                 matriz[i][j] = GeneradorAleatorio.generarInt(31);
             }
         }
 
-        for (i = 0; i < 5; i++) {
-            for (j = 0; j < 5; j++) {
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
                 System.out.print(" " + matriz[i][j]);
             }
-            System.out.println("");
+            System.out.println();
         }
 
-        int suma = 0;
-        for (i = 0; i < 5; i++) {
-            suma = suma + matriz[1][i];
+        int sumaFila = 0;
+        for (int j = 0; j < N; j++) {
+            sumaFila += matriz[1][j];
         }
-        System.out.println("La suma de los elementos de la fila 1 es: " + suma);
+        System.out.println("La suma de los elementos de la fila 1 es: " + sumaFila);
 
-        int vector[] = new int[5];
-        for (i = 0; i < 5; i++) {
-            suma = 0;
-            for (j = 0; j < 5; j++) {
-                suma = suma + matriz[j][i];
+        int[] sumaColumnas = new int[N];
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                sumaColumnas[j] += matriz[i][j];
             }
-            vector[i] = suma;
         }
-
         System.out.println("Suma por columnas:");
-        for (i = 0; i < 5; i++) {
-            System.out.println(vector[i]);
+        for (int suma : sumaColumnas) {
+            System.out.println(suma);
         }
 
         System.out.print("Ingrese un numero a buscar: ");
-        int n = Lector.leerInt();
-        i = 0;
-        boolean encontrado = false;
-        int filaEncontrada = -1;
-        int colEncontrada = -1;
-
-        while (i < 5 && !encontrado) {
-            j = 0;
-            while (j < 5 && !encontrado) {
-                if (n == matriz[i][j]) {
-                    encontrado = true;
-                    filaEncontrada = i;
-                    colEncontrada = j;
-                } else {
-                    j++;
+        int buscado = Lector.leerInt();
+        int fila = -1;
+        int columna = -1;
+        for (int i = 0; i < N && fila == -1; i++) {
+            for (int j = 0; j < N && fila == -1; j++) {
+                if (matriz[i][j] == buscado) {
+                    fila = i;
+                    columna = j;
                 }
             }
-            i++;
         }
 
-        if (encontrado) {
-            System.out.println("El numero se encuentra en la Fila " + filaEncontrada + ", Columna " + colEncontrada);
+        if (fila != -1) {
+            System.out.println("El numero se encuentra en la Fila " + fila + ", Columna " + columna);
         } else {
             System.out.println("No se encontró el elemento");
         }

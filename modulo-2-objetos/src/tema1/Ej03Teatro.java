@@ -4,57 +4,67 @@ import PaqueteLectura.GeneradorAleatorio;
 import PaqueteLectura.Lector;
 
 /**
+ * Práctica 1 - Ejercicio 3
  *
- * @author luca
+ * Un teatro realizó durante los 7 días de la semana 4 funciones diarias.
+ * Escriba un programa que cargue en una estructura la cantidad de espectadores
+ * que concurrieron a cada día/función. Una vez cargada, realice recorridos
+ * independientes para:
+ *  - Dado un día (int) leído de teclado, informar la cantidad de espectadores
+ *    que concurrieron a cada función en ese día.
+ *  - Dada una función (int) leída de teclado, informar la cantidad de
+ *    espectadores que concurrieron en cada día a esa función.
+ *  - Informar en qué día y función hubo más espectadores.
  */
 public class Ej03Teatro {
 
-	public static void main(String[] args) {
-		GeneradorAleatorio.iniciar();
-		int semana[][] = new int[4][7];
-		int i, j;
+    private static final int FUNCIONES = 4;
+    private static final int DIAS = 7;
 
-		for (i = 0; i < 4; i++) {
-			for (j = 0; j < 7; j++) {
-				semana[i][j] = GeneradorAleatorio.generarInt(100);
-			}
-		}
+    public static void main(String[] args) {
+        GeneradorAleatorio.iniciar();
 
-		for (i = 0; i < 4; i++) {
-			for (j = 0; j < 7; j++) {
-				System.out.print(" " + semana[i][j]);
-			}
-			System.out.println("");
-		}
+        int[][] espectadores = new int[FUNCIONES][DIAS];
+        for (int f = 0; f < FUNCIONES; f++) {
+            for (int d = 0; d < DIAS; d++) {
+                espectadores[f][d] = GeneradorAleatorio.generarInt(100);
+            }
+        }
 
-		System.out.println();
-		System.out.println("Ingrese un numero de dia 1..7");
-		int dia = Lector.leerInt();
-		for (i = 0; i < 4; i++) {
-			System.out.println("la funcion " + (i + 1) + " tuvo " + semana[i][dia - 1] + " espectadores");
-		}
+        for (int f = 0; f < FUNCIONES; f++) {
+            for (int d = 0; d < DIAS; d++) {
+                System.out.print(" " + espectadores[f][d]);
+            }
+            System.out.println();
+        }
 
-		System.out.println();
-		System.out.println("ingrese un numero de funcion 1..4");
-		int funcion = Lector.leerInt();
-		for (j = 0; j < 7; j++) {
-			System.out.println("en el dia " + (j + 1) + " en la funcion " + funcion + " hubieron " + semana[funcion - 1][j] + " espectadores");
-		}
+        System.out.println();
+        System.out.println("Ingrese un numero de dia 1..7");
+        int dia = Lector.leerInt();
+        for (int f = 0; f < FUNCIONES; f++) {
+            System.out.println("la funcion " + (f + 1) + " tuvo " + espectadores[f][dia - 1] + " espectadores");
+        }
 
-		System.out.println();
-		int maxEspectadores = -1;
-		int maxDia = -1;
-		int maxFuncion = -1;
+        System.out.println();
+        System.out.println("ingrese un numero de funcion 1..4");
+        int funcion = Lector.leerInt();
+        for (int d = 0; d < DIAS; d++) {
+            System.out.println("en el dia " + (d + 1) + " en la funcion " + funcion + " hubieron " + espectadores[funcion - 1][d] + " espectadores");
+        }
 
-		for (i = 0; i < 4; i++) {
-			for (j = 0; j < 7; j++) {
-				if (semana[i][j] > maxEspectadores) {
-					maxEspectadores = semana[i][j];
-					maxFuncion = i + 1;
-					maxDia = j + 1;
-				}
-			}
-		}
-		System.out.println("el dia " + maxDia + " en la funcion " + maxFuncion + " fue donde hubo mas espectadores: " + maxEspectadores);
-	}
+        System.out.println();
+        int max = -1;
+        int maxDia = -1;
+        int maxFuncion = -1;
+        for (int f = 0; f < FUNCIONES; f++) {
+            for (int d = 0; d < DIAS; d++) {
+                if (espectadores[f][d] > max) {
+                    max = espectadores[f][d];
+                    maxFuncion = f + 1;
+                    maxDia = d + 1;
+                }
+            }
+        }
+        System.out.println("el dia " + maxDia + " en la funcion " + maxFuncion + " fue donde hubo mas espectadores: " + max);
+    }
 }
