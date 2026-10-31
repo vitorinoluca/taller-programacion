@@ -78,7 +78,9 @@ robots
   variables
     a, b, c, d: numero
   comenzar
-    izquierda
+    derecha
+    derecha
+    derecha
     recorrerLado(a, b, c, d)
     Informar(d)
   fin
