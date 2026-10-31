@@ -7,8 +7,8 @@ c) ¿Existe riesgo de colisión?
 
 Análisis:
 a) 4 tipos, porque cada robot informa algo distinto (el recorrido es el mismo y se comparte en un proceso).
-b) 4 áreas parciales (AreaP), una por lado. Cada robot recorre 20 esquinas de su lado y la última esquina del lado le pertenece al siguiente robot.
-c) No hay riesgo: las áreas no se superponen y cada robot queda dentro de la suya.
+b) 4 áreas privadas (AreaP), una por el interior de cada lado, y 4 áreas parcialmente compartidas (AreaPC), una por cada vértice del cuadrado, que comparten los dos robots que se cruzan ahí.
+c) Sí, en los vértices: el robot que llega a un vértice puede encontrar al siguiente robot todavía parado ahí. Al ser AreaPC, el robot que llega espera a que la esquina se libere, así que no chocan.
 }
 
 programa ejemplo
@@ -39,16 +39,21 @@ procesos
     soloP:= 0
     ambos:= 0
     vacias:= 0
-    repetir 19
-      evaluarEsquina(soloF, soloP, ambos, vacias)
-      mover
     evaluarEsquina(soloF, soloP, ambos, vacias)
+    repetir 19
+      mover
+      evaluarEsquina(soloF, soloP, ambos, vacias)
+    mover
   fin
 areas
-  lado1: AreaP (10,10,10,29)
-  lado2: AreaP (10,30,29,30)
-  lado3: AreaP (30,11,30,30)
-  lado4: AreaP (11,10,30,10)
+  interior1: AreaP (10,11,10,29)
+  interior2: AreaP (11,30,29,30)
+  interior3: AreaP (30,11,30,29)
+  interior4: AreaP (11,10,29,10)
+  vertice1: AreaPC (10,10,10,10)
+  vertice2: AreaPC (10,30,10,30)
+  vertice3: AreaPC (30,30,30,30)
+  vertice4: AreaPC (30,10,30,10)
 robots
   robot tipo1
   variables
@@ -90,10 +95,18 @@ variables
   robot3: tipo3
   robot4: tipo4
 comenzar
-  AsignarArea(robot1, lado1)
-  AsignarArea(robot2, lado2)
-  AsignarArea(robot3, lado3)
-  AsignarArea(robot4, lado4)
+  AsignarArea(robot1, interior1)
+  AsignarArea(robot1, vertice1)
+  AsignarArea(robot1, vertice2)
+  AsignarArea(robot2, interior2)
+  AsignarArea(robot2, vertice2)
+  AsignarArea(robot2, vertice3)
+  AsignarArea(robot3, interior3)
+  AsignarArea(robot3, vertice3)
+  AsignarArea(robot3, vertice4)
+  AsignarArea(robot4, interior4)
+  AsignarArea(robot4, vertice4)
+  AsignarArea(robot4, vertice1)
   Iniciar(robot1, 10, 10)
   Iniciar(robot2, 10, 30)
   Iniciar(robot3, 30, 30)
