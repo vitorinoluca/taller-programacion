@@ -1,0 +1,63 @@
+{Ejercicio 3: Realice un programa en el que 3 robots realicen escaleras de 4 escalones. El tamaño de cada escalón se incrementa en un 1 respecto al escalón anterior. El primer escalón será de 1x1, el segundo de 2x2, y así sucesivamente. Al finalizar el recorrido, cada robot debe informar la cantidad de escalones en los que la cantidad de papeles superó en 1 a la cantidad de flores. Las esquinas deben quedar sin modificar.
+}
+
+programa ejemplo
+procesos
+  proceso contarBasura(ES f: numero; ES p: numero)
+  variables
+    fAux, pAux: numero
+  comenzar
+    fAux:= 0
+    pAux:= 0
+    mientras (HayPapelEnLaEsquina)
+      tomarPapel
+      pAux:= pAux + 1
+    mientras (HayFlorEnLaEsquina)
+      tomarFlor
+      fAux:= fAux + 1
+    p:= p + pAux
+    f:= f + fAux
+    repetir pAux
+      depositarPapel
+    repetir fAux
+      depositarFlor
+  fin
+
+  proceso hacerEscalera
+  variables
+    lado, f, p, cant: numero
+  comenzar
+    lado:= 1
+    cant:= 0
+    repetir 4
+      f:= 0
+      p:= 0
+      repetir 2
+        repetir lado
+          mover
+          contarBasura(f, p)
+        derecha
+      repetir 2
+        derecha
+      si (p - f = 1)
+        cant:= cant + 1
+      lado:= lado + 1
+    Informar(cant)
+  fin
+areas
+  ciudad: AreaC (1,1,100,100)
+robots
+  robot tipo1
+  comenzar
+    hacerEscalera
+  fin
+variables
+  r1, r2, r3: tipo1
+comenzar
+  AsignarArea(r1, ciudad)
+  AsignarArea(r2, ciudad)
+  AsignarArea(r3, ciudad)
+  Iniciar(r1, 2, 14)
+  Iniciar(r2, 11, 14)
+  Iniciar(r3, 21, 14)
+fin

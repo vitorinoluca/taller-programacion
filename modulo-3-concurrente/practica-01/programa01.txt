@@ -1,0 +1,65 @@
+{Ejercicio 1 (inciso b): Realice un programa para que un robot junte todas las flores de la avenida 1 y las deposite al final de dicha avenida. Al finalizar, debe informar la cantidad de flores depositadas y la cantidad de esquinas sin flores que encontró durante el recorrido.
+b) Modifique el programa anterior para que el trabajo sea realizado por 3 robots: uno realiza la avenida 1, otro realiza la avenida 3 y otro la avenida 5. Cada robot debe iniciar en las esquina (1,1), (3,1) y (5,1) respectivamente.
+}
+
+{Bienvenidos al entorno CMRE.
+Lo siguiente es un código de ejemplo que implementa un
+proceso que recibe un número de avenida como parámetro,
+se posiciona en esa avenida y la recorre.}
+
+programa ejemplo
+procesos
+  proceso recogerFlores(ES flores: numero; ES esqSinFlores: numero)
+  comenzar
+    si HayFlorEnLaEsquina
+      mientras HayFlorEnLaEsquina
+        tomarFlor
+        flores:= flores + 1
+    sino
+      esqSinFlores:= esqSinFlores + 1
+  fin
+  proceso recorrerAvenida(E numAv: numero)
+  variables
+    flores: numero
+    esqSinFlores: numero
+  comenzar
+    flores:= 0
+    esqSinFlores:= 0
+    Pos(numAv, 1)
+    repetir 99
+      recogerFlores(flores, esqSinFlores)
+      mover
+    recogerFlores(flores, esqSinFlores)
+    
+    repetir flores
+      depositarFlor
+    Informar(flores)
+    Informar(esqSinFlores)
+  fin
+areas
+  ciudad: AreaC (1,1,100,100)
+robots
+  robot robot1
+  comenzar
+    recorrerAvenida(1)
+  fin
+  robot robot2
+  comenzar
+    recorrerAvenida(3)
+  fin
+  robot robot3
+  comenzar
+    recorrerAvenida(5)
+  fin
+variables
+  r1: robot1
+  r2: robot2
+  r3: robot3
+comenzar
+  AsignarArea(r1, ciudad)
+  AsignarArea(r2, ciudad)
+  AsignarArea(r3, ciudad)
+  Iniciar(r1, 1,1)
+  Iniciar(r2, 2,1)
+  Iniciar(r3, 3,1)
+fin
