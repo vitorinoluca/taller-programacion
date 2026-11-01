@@ -1,0 +1,95 @@
+{Ejercicio 5: Realice un programa en el que cuatro robots realizan las siguientes actividades:
+- El robot 1 debe limpiar de flores las primeras 15 esquinas de las calles 75 y 80. Al finalizar cada calle, debe depositar todas las flores en la última esquina.
+- El robot 2 debe limpiar de papeles las últimas 20 esquinas de las avenidas 75 y 80. Al finalizar cada avenida debe depositar todos los papeles en la primera esquina.
+- El robot 3 debe limpiar de flores las últimas 15 esquinas de las calles 10 y 15. Al finalizar cada calle, debe depositar todas las flores en la última esquina.
+- El robot 4 debe limpiar de papeles las primeras 20 esquinas de las avenidas 10 y 15. Al finalizar cada avenida debe depositar todos los papeles en la primera esquina.
+}
+
+programa ejemplo
+procesos
+  proceso juntarFlores(ES f: numero)
+  comenzar
+    mientras (HayFlorEnLaEsquina)
+      tomarFlor
+      f:= f + 1
+  fin
+  proceso juntarPapeles(ES p: numero)
+  comenzar
+    mientras (HayPapelEnLaEsquina)
+      tomarPapel
+      p:= p + 1
+  fin
+  proceso limpiarCalle
+  variables
+    f: numero
+  comenzar
+    f:= 0
+    repetir 14
+      juntarFlores(f)
+      mover
+    juntarFlores(f)
+    repetir f
+      depositarFlor
+  fin
+  proceso limpiarAvenida
+  variables
+    p: numero
+  comenzar
+    p:= 0
+    repetir 19
+      juntarPapeles(p)
+      mover
+    juntarPapeles(p)
+    repetir p
+      depositarPapel
+  fin
+  proceso recorrerCalle
+  comenzar
+    derecha
+    limpiarCalle
+    Pos(PosAv - 14, PosCa + 5)
+    limpiarCalle
+  fin
+  proceso recorrerAvenida
+  comenzar
+    limpiarAvenida
+    Pos(PosAv + 5, PosCa - 19)
+    limpiarAvenida
+  fin
+areas
+  area1: AreaP (1,80,15,80)
+  area2: AreaP (1,75,15,75)
+  area3: AreaP (86,15,100,15)
+  area4: AreaP (86,10,100,10)
+  area5: AreaP (80,81,80,100)
+  area6: AreaP (75,81,75,100)
+  area7: AreaP (10,1,10,20)
+  area8: AreaP (15,1,15,20)
+robots
+  robot robot1
+  comenzar
+    recorrerCalle
+  fin
+  robot robot2
+  comenzar
+    recorrerAvenida
+  fin
+variables
+  r1: robot1
+  r2: robot2
+  r3: robot1
+  r4: robot2
+comenzar
+  AsignarArea(r1, area1)
+  AsignarArea(r1, area2)
+  AsignarArea(r2, area5)
+  AsignarArea(r2, area6)
+  AsignarArea(r3, area3)
+  AsignarArea(r3, area4)
+  AsignarArea(r4, area7)
+  AsignarArea(r4, area8)
+  Iniciar(r1, 1, 75)
+  Iniciar(r2, 75, 81)
+  Iniciar(r3, 86, 10)
+  Iniciar(r4, 10, 1)
+fin

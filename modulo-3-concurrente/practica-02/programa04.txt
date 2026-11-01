@@ -1,0 +1,152 @@
+{Ejercicio 4: Realice un programa en el que un robot fiscalizador controla el acceso de 4 robots recolectores al cuadrante encerrado entre las esquinas (25,25) y (75,75). Para ello, el robot fiscalizador avisa a un robot recolector aleatorio que puede ingresar al área. El robot que recibe la autorización de acceso calcula una esquina aleatoria dentro del área, limpia dicha esquina de flores y papeles, regresa a su esquina y avisa al robot fiscalizador que ya finalizó.
+Se realizarán en total 10 accesos al cuadrante entre los 4 robots recolectores. Al finalizar, el robot fiscalizador deberá indicar al robot ganador (el que juntó más objetos en total) que se posicione en la esquina (50,50).
+El robot fiscalizador inicia en la esquina (1,1) y los robots recolectores inician en las esquinas (25,1) (30,1) (35,1) y (40,1) respectivamente.
+}
+
+programa ejemplo
+areas
+  recoleccion: AreaPC (25,25,75,75)
+  AreaFiscalizador: AreaP (1,1,1,1)
+  areaR1: AreaP (25,1,25,1)
+  areaR2: AreaP (30,1,30,1)
+  areaR3: AreaP (35,1,35,1)
+  areaR4: AreaP (40,1,40,1)
+robots
+  robot fiscalizador
+  variables
+    bot: numero
+    aux: numero
+    cant1, cant2, cant3, cant4: numero
+    max, ganador: numero
+  comenzar
+    EnviarMensaje(1, r1)
+    EnviarMensaje(2, r2)
+    EnviarMensaje(3, r3)
+    EnviarMensaje(4, r4)
+    
+    cant1:= 0
+    cant2:= 0
+    cant3:= 0
+    cant4:= 0
+        
+    repetir 10
+      Random(bot, 1, 4)
+      si (bot = 1)
+        EnviarMensaje(V, r1)
+        EnviarMensaje(F, r2)
+        EnviarMensaje(F, r3)
+        EnviarMensaje(F, r4)
+        RecibirMensaje(aux, r1)
+        cant1:= cant1 + aux
+      si (bot = 2)
+        EnviarMensaje(F, r1)
+        EnviarMensaje(V, r2)
+        EnviarMensaje(F, r3)
+        EnviarMensaje(F, r4)
+        RecibirMensaje(aux, r2)
+        cant2:= cant2 + aux
+      si (bot = 3)
+        EnviarMensaje(F, r1)
+        EnviarMensaje(F, r2)
+        EnviarMensaje(V, r3)
+        EnviarMensaje(F, r4)
+        RecibirMensaje(aux, r3)
+        cant3:= cant3 + aux
+      si (bot = 4)
+        EnviarMensaje(F, r1)
+        EnviarMensaje(F, r2)
+        EnviarMensaje(F, r3)
+        EnviarMensaje(V, r4)
+        RecibirMensaje(aux, r4)
+        cant4:= cant4 + aux
+    max:= cant1
+    ganador:= 1
+    si (cant2 > max)
+      max:= cant2
+      ganador:= 2
+    si (cant3 > max)
+      max:= cant3
+      ganador:= 3
+    si (cant4 > max)
+      max:= cant4
+      ganador:= 4
+      
+    si (ganador = 1)
+      EnviarMensaje(V, r1)
+      EnviarMensaje(F, r2)
+      EnviarMensaje(F, r3)
+      EnviarMensaje(F, r4)
+    si (ganador = 2)
+      EnviarMensaje(F, r1)
+      EnviarMensaje(V, r2)
+      EnviarMensaje(F, r3)
+      EnviarMensaje(F, r4)
+    si (ganador = 3)
+      EnviarMensaje(F, r1)
+      EnviarMensaje(F, r2)
+      EnviarMensaje(V, r3)
+      EnviarMensaje(F, r4)
+    si (ganador = 4)
+      EnviarMensaje(F, r1)
+      EnviarMensaje(F, r2)
+      EnviarMensaje(F, r3)
+      EnviarMensaje(V, r4)
+  fin
+  
+  robot recolector
+  variables
+    id: numero
+    avIni: numero
+    caIni: numero
+    ok: boolean
+    avRandom: numero
+    caRandom: numero
+    flores, p: numero
+    ganador: boolean
+  comenzar
+    RecibirMensaje(id, f)
+    avIni:= PosAv
+    caIni:= PosCa
+    flores:= 0
+    p:= 0
+    repetir 10
+      RecibirMensaje(ok, f)
+      si (ok)
+        Random(avRandom, 25, 75)
+        Random(caRandom, 25, 75)
+        Pos(avRandom, caRandom)
+        mientras HayPapelEnLaEsquina
+          tomarPapel
+          p:= p + 1
+        mientras HayFlorEnLaEsquina
+          tomarFlor
+          flores:= flores + 1
+        Pos(avIni, caIni)
+        EnviarMensaje(flores + p, f)
+        flores:= 0
+        p:= 0
+    RecibirMensaje(ganador, f)
+    si (ganador)
+      Pos(50,50)
+    
+  fin
+  
+variables
+  f: fiscalizador
+  r1,r2,r3,r4: recolector
+comenzar
+  AsignarArea(f, AreaFiscalizador)
+  AsignarArea(r1, recoleccion)
+  AsignarArea(r2, recoleccion)
+  AsignarArea(r3, recoleccion)
+  AsignarArea(r4, recoleccion)
+  AsignarArea(r1, areaR1)
+  AsignarArea(r2, areaR2)
+  AsignarArea(r3, areaR3)
+  AsignarArea(r4, areaR4)
+  Iniciar(r1, 25,1)
+  Iniciar(r2, 30,1)
+  Iniciar(r3, 35,1)
+  Iniciar(r4, 40,1)
+  Iniciar(f, 1,1)
+fin

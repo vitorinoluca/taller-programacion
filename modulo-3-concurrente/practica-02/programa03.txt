@@ -1,0 +1,107 @@
+{Ejercicio 3 (inciso b): Realice un programa con 2 equipos.
+- El equipo A, compuesto por los robots A1 y A2, debe juntar papeles de las primeras 20 esquinas de la calle 5
+- El equipo B, compuesto por los robots B1 y B2, debe juntar papeles de las primeras 20 esquinas de la calle 7
+Además existe un robot Fiscalizador que envía las identificaciones necesarias.
+Los robots A1 y B1 deberán realizar las 10 primeras esquinas de su recorrido, y al finalizar avisarán a los robots A2 y B2 respectivamente para que continúen con las siguientes 10 esquinas. Al finalizar el Fiscalizador debe informar qué equipo fue el ganador.
+Inicialice los robots en las esquinas que considere más apropiadas según el trayecto que le corresponde realizar a cada uno. El Fiscalizador inicia en la esquina (1,1).
+b) Modifique el programa anterior para que cada equipo repita el recorrido con las siguientes 20 esquinas de sus correspondientes calles.
+c) Analice (no es necesario implementar) cómo implementaría el inciso b si ahora cada equipo debe realizar 8 segmentos de 20 esquinas.
+}
+
+programa ejemplo
+procesos
+  proceso juntarPapeles
+  comenzar
+    repetir 9
+      mientras (HayPapelEnLaEsquina)
+        tomarPapel
+      mover
+    mientras (HayPapelEnLaEsquina)
+      tomarPapel
+  fin
+  proceso recorridoLimpiador1(E id: numero)
+  comenzar
+    juntarPapeles
+    si (id = 1)
+      EnviarMensaje(V, A2)
+    sino
+      EnviarMensaje(V, B2)
+  fin
+  proceso recorridoLimpiador2(E id: numero)
+  variables
+    ok: boolean
+  comenzar
+    si (id = 2)
+      RecibirMensaje(ok, A1)
+    sino
+      RecibirMensaje(ok, B1)
+    juntarPapeles
+  fin
+areas
+  areaFiscalizador: AreaP (1,1,1,1)
+  areaA1: AreaP (1,5,10,5)
+  areaA2: AreaP (11,5,20,5)
+  areaB1: AreaP (1,7,10,7)
+  areaB2: AreaP (11,7,20,7)
+  areaA12: AreaP (21,5,30,5)
+  areaA22: AreaP (31,5,40,5)
+  areaB12: AreaP (21,7,30,7)
+  areaB22: AreaP (31,7,40,7)
+robots
+  robot limpiador1
+  variables
+    id: numero
+  comenzar
+    RecibirMensaje(id, f)
+    derecha
+    recorridoLimpiador1(id)
+    Pos(PosAv + 11, PosCa)
+    recorridoLimpiador1(id)
+  fin
+  robot limpiador2
+  variables
+    id: numero
+  comenzar
+    RecibirMensaje(id, f)
+    derecha
+    recorridoLimpiador2(id)
+    Pos(PosAv + 11, PosCa)
+    recorridoLimpiador2(id)
+    EnviarMensaje(id, f)
+  fin
+  robot fiscalizador
+  variables
+    ganador: numero
+    perdedor: numero
+  comenzar
+    EnviarMensaje(1, A1)
+    EnviarMensaje(2, A2)
+    EnviarMensaje(3, B1)
+    EnviarMensaje(4, B2)
+    RecibirMensaje(ganador, *)
+    RecibirMensaje(perdedor, *)
+    si (ganador = 2)
+      Informar(1)
+    sino
+      Informar(2)
+  fin
+variables
+  f: fiscalizador
+  A1,B1: limpiador1
+  A2,B2: limpiador2
+comenzar
+  AsignarArea(f, areaFiscalizador)
+  AsignarArea(A1, areaA1)
+  AsignarArea(A2, areaA2)
+  AsignarArea(B1, areaB1)
+  AsignarArea(B2, areaB2)
+  AsignarArea(A1, areaA12)
+  AsignarArea(A2, areaA22)
+  AsignarArea(B1, areaB12)
+  AsignarArea(B2, areaB22)
+  Iniciar(A1, 1,5)
+  Iniciar(A2, 11,5)
+  Iniciar(B1, 1,7)
+  Iniciar(B2, 11,7)
+  Iniciar(f, 1,1)
+fin
